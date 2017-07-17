@@ -16,4 +16,4 @@ before_install:
   - sudo service docker restart
 
 script:
-  make all
+  make all-centos
