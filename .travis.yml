@@ -1,19 +1,31 @@
 dist: trusty
 language: python
 python:
-  - "2.7"
+- '2.7'
 services:
-  - docker
+- docker
 env:
   global:
-    - PATH="/usr/bin:$PATH"
-
+  - PATH="/usr/bin:$PATH"
+  - secure: YC57dputfR71/AJdwUSSiY4it5QqGtvZxs6TOdpiIt4gfYG0W2q0gnCZgPtvLM+TuH8zgQXQjBoOrroS2xAtq6eciC9c0U6avSj7frMNXKTuUs6BQQM+DBQjiNq6N/sJcltygzTDu4fzsCU7mem++eykM/s2tyh17JVU/6Uzc6svzcWnyfKA4ydtD/09hYgMV8D6lJuXvIjjpdODUZ8M0T1/Ru9M7UfbD+O8ZOGV9EQqbaNkWX+yD8WmO22RcT/bAfu8g0h5CnA8I8yi3eyo7zuLKDdz4EVGKwqZDO/o5rFbbZ0lvi3m2urDuccxtYMWVL3h39v4izfkEfIf7w2mnmEOah82/NKjPMfso88yKu4gNMhX7o+qjJ7PFZ5w5Wde6sbM4n9e1syeVda99wZ/PFXjUY2ZyFw6dl+1Xya0CBo1yGcT5V7NwwZuEYKazfJ2OvAhXoa3lJctkVer7FN6A9kZ9BfFU7BO0gQOu7ycwe/ZB5sQFFQwNHaSS+kcu+3fBTdUMK6ZkVie/w/akr9hqk46b1Kd5SB8uDIho1lYvHSpKM8RNGRrPwSylt3/rqXJBnmG44YaNNDEg89HW1Stud+g1zWDV6+ZIAJS/8Uv79oB1ZMRNjSZxA/FE2g1a7vdkdAx7d2rLt4w1zQF73m//Sg21pHmIq75ANFS8j8UtV4=
+  - DOCKER_USERNAME="rhmessagingqe"
 before_install:
-  - deactivate
-  - sudo apt-get update -qq
-  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
-  - echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
-  - sudo service docker restart
+- deactivate
+- sudo apt-get update -qq
+- sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
+- echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"'
+  | sudo tee /etc/default/docker > /dev/null
+- sudo service docker restart
+jobs:
+  include:
+  - stage: Build CentOS docker images
+    script:
+    - make all-centos
+    - docker images
 
-script:
-  make all-centos
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push "$DOCKER_USERNAME"/sshd-service:centos6;
+    docker push "$DOCKER_USERNAME"/sshd-service:centos7;
+    fi
