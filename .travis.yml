@@ -26,6 +26,5 @@ jobs:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push "$DOCKER_USERNAME"/sshd-service:centos6;
-    docker push "$DOCKER_USERNAME"/sshd-service:centos7;
+    docker push "$DOCKER_USERNAME"/sshd-service;
     fi
