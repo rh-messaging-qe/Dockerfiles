@@ -14,7 +14,7 @@ sshd-service-centos6:
 	docker build -t rhmessagingqe/sshd-service:centos6 sshd-service/centos6
 
 sshd-service-centos7:
-	docker build -t rhmessagingqe/sshd-service:centos7 sshd-service/centos73
+	docker build -t rhmessagingqe/sshd-service:centos7 sshd-service/centos7
 
 sshd-service-rhel6:
 	docker build -t rhmessagingqe/sshd-service:rhel6 sshd-service/rhel6
