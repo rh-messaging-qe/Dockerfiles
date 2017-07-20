@@ -1,5 +1,7 @@
 FROM registry.access.redhat.com/rhel6
 
+MAINTAINER "Dominik Lenoch" <dlenoch@redhat.com>
+
 RUN yum -y update; yum clean all
 RUN yum -y install initscripts; yum clean all; rm /etc/rc.d/rc*.d/*
 
