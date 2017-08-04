@@ -26,8 +26,8 @@ jobs:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker tag "$DOCKER_USERNAME"/sshd-service:centos7 rhmessagingqe/sshd-service:latest
-    docker tag "$DOCKER_USERNAME"/cli-rhea:centos7 rhmessagingqe/cli-rhea:latest
+    docker tag "$DOCKER_USERNAME"/sshd-service:centos7 rhmessagingqe/sshd-service:latest;
+    docker tag "$DOCKER_USERNAME"/cli-rhea:centos7 rhmessagingqe/cli-rhea:latest;
     docker push "$DOCKER_USERNAME"/sshd-service;
     docker push "$DOCKER_USERNAME"/cli-rhea;
     fi
