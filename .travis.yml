@@ -20,7 +20,7 @@ jobs:
   include:
   - stage: Build CentOS docker images
     script:
-    - make all-centos
+    - make all-centos all-alpine
     - docker images
 
 after_success:

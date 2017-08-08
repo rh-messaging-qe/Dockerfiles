@@ -7,6 +7,9 @@ all-centos: sshd-service-centos6 sshd-service-centos7 cli-rhea-centos7
 .PHONY: all-rhel
 all-rhel: sshd-service-rhel6 sshd-service-centos7
 
+.PHONY: all-alpine
+all-centos: cli-rhea-alpine
+
 .PHONY: clients
 clients: cli-rhea-centos7, cli-rhea-alpine
 
