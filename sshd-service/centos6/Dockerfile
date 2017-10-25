@@ -18,6 +18,6 @@ RUN yum -y install openssh-server openssh-clients &&\
     echo 'root:docker.io' | chpasswd &&\
     /etc/init.d/sshd start
 
-EXPOSE 1-65535
+EXPOSE 22, 5672, 5673
 
 CMD ["/sbin/init"]
