@@ -15,6 +15,6 @@ RUN yum -y install openssh-server sudo openssh-clients &&\
 VOLUME ["/sys/fs/cgroup"]
 VOLUME ["/run"]
 
-EXPOSE 22
+EXPOSE 1-65535
 
 CMD ["/usr/sbin/init"]
