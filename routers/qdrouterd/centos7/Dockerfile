@@ -19,9 +19,9 @@ RUN export \
 	&& git clone https://github.com/warmcat/libwebsockets.git \
 	&& cd /main/libwebsockets && git checkout v2.4-stable && cd /main \
 	# qpid-proton master
-	&& git clone https://github.com/apache/qpid-proton.git --depth 1 \
+	&& git clone https://github.com/apache/qpid-proton.git \
 	# qpid-dispatch master
-	&& git clone https://github.com/apache/qpid-dispatch.git --depth 1 \
+	&& git clone https://github.com/apache/qpid-dispatch.git \
 	#
 	# Prepare build dir
 	&& mkdir -p /main/{libwebsockets,qpid-{dispatch,proton}}/build \
@@ -42,6 +42,10 @@ RUN export \
 	&& cmake --build . --target install  \
 	#
 	# Build Qpid Dispatch
+	&& cd "/main/qpid-dispatch" \
+  	&& echo "Dispatch commit:("$(git rev-list --count HEAD).$(git rev-parse --short HEAD)")" >> /main/qpid-dispatch/VERSION.txt \
+	&& cd "/main/qpid-proton" \
+  	&& echo "Proton commit:("$(git rev-list --count HEAD).$(git rev-parse --short HEAD)")" >> /main/qpid-dispatch/VERSION.txt \
 	&& cd /main/qpid-dispatch/build \
 	&& cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
