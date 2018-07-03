@@ -1,4 +1,4 @@
-FROM openjdk:slim
+FROM openjdk:stretch
 
 COPY ./cli-qpid.jar /cli-qpid.jar
 COPY ./cli-artemis.jar /cli-artemis.jar
