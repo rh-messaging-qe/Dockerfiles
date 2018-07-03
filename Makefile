@@ -13,8 +13,11 @@ all-centos: cli-rhea-alpine cli-java-alpine
 .PHONY: all-ubuntu
 all-ubuntu: qpid-dispatch-ubuntu
 
+.PHONY: all-debian
+all-debian: cli-java-debian
+
 .PHONY: clients
-clients: cli-rhea-centos7, cli-rhea-alpine, cli-proton-python-centos7, cli-java-alpine
+clients: cli-rhea-centos7, cli-rhea-alpine, cli-proton-python-centos7, cli-java-alpine, cli-java-debian
 
 .PHONY: routers
 routers: qpid-dispatch-ubuntu, qpid-dispatch-centos7
@@ -66,6 +69,11 @@ cli-java-alpine: cli-java-build
 	cp clients/cli-java/cli-*.jar clients/cli-java/alpine
 	docker build -t rhmessagingqe/cli-java:alpine clients/cli-java/alpine
 	rm clients/cli-java/alpine/cli-*.jar
+
+cli-java-debian: cli-java-build
+	cp clients/cli-java/cli-*.jar clients/cli-java/debian
+	docker build -t rhmessagingqe/cli-java:debian clients/cli-java/debian
+	rm clients/cli-java/debian/cli-*.jar
 
 .PHONY: qpid-dispatch
 qpid-dispatch: qpid-dispatch-ubuntu qpid-dispatch-centos7
