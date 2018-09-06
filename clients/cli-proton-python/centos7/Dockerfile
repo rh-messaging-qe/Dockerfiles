@@ -3,7 +3,7 @@ FROM rhmessagingqe/proton-lib:centos7
 RUN export \
         MAKEFLAGS=-j$(nproc) \
 		DEP='python-pip python-wheel python-setuptools' \
-		BUILD_DEP='git gcc python-devel openssl-devel cyrus-sasl-devel' \
+		BUILD_DEP='git gcc python-devel openssl-devel cyrus-sasl-devel cyrus-sasl-plain' \
 		OTHER='valgrind' \
 	#
 	# Update latest
