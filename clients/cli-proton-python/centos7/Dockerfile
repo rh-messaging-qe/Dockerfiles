@@ -7,8 +7,8 @@ RUN export \
 		OTHER='valgrind' \
 	#
 	# Update latest
-	&& yum -y install $DEP \
 	&& yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+	&& yum -y install $DEP \
 	&& yum -y install $BUILD_DEP \
 	#
 	# Prepare sources
@@ -19,8 +19,8 @@ RUN export \
 	&& python setup.py install \
 	#
 	# Clean image
-	&& yum -y history undo 8 \
-	&& yum -y history undo 7 \
+	#&& yum -y history undo 8 \
+	#&& yum -y history undo 7 \
 	&& yum -y clean all \
 	&& rm -rf /var/cache/yum /main
 
