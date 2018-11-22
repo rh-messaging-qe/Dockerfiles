@@ -6,12 +6,12 @@ RUN apt-get update -y && apt-get clean && apt-get autoclean -y && apt-get autore
 RUN export \
 			MAKEFLAGS=-j$(nproc) \
 			DEP='python libpython2.7 libsasl2-2 libsasl2-modules libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap sasl2-bin' \
-			BUILD_DEP='git libtool automake cmake gcc zlib1g-dev swig python-dev libssl-dev libev-dev libuv1-dev libsasl2-dev uuid-dev' \
+			BUILD_DEP='git libtool automake cmake gcc g++ zlib1g-dev swig python-dev libssl-dev libev-dev libuv-dev libsasl2-dev uuid-dev' \
 			OTHER='valgrind' \
 	#
 	# Update latest
-	&& apt-get install -y $DEP \
-	&& apt-get install -y $BUILD_DEP $OTHER \
+	&& apt-get install -y -qq $DEP \
+	&& apt-get install -y -qq $BUILD_DEP $OTHER \
 	#
 	# Prepare sources
 	&& mkdir -p /main && cd /main \
@@ -26,17 +26,16 @@ RUN export \
 	# Build libwebsockets
 	&& mkdir -p /main/libwebsockets/build && cd /main/libwebsockets/build \
 	&& cmake .. \
-		-DCMAKE_INSTALL_PREFIX=/usr	\
-		-DLWS_WITH_HTTP2=1 \
+		-DCMAKE_INSTALL_PREFIX=/usr \
 	&& cmake --build . --target install \
 	#
 	# Build Qpid Proton
-	&& mkdir -p /main/qpid-proton/build && cd /main/qpid-proton/build \
+    && mkdir -p /main/qpid-proton/build && cd /main/qpid-proton/build \
 	&& cmake .. \
 		-DSYSINSTALL_BINDINGS=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DSYSINSTALL_PYTHON=ON \
-	&& cmake --build . --target install  \
+	&& make install  \
 	#
 	# Build Qpid Dispatch
 	&& mkdir -p /main/qpid-dispatch/build \
