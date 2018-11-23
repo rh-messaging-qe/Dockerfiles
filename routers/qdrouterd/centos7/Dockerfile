@@ -25,7 +25,6 @@ RUN export \
 	&& cd /main/libwebsockets/build \
 	&& cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DLWS_WITH_HTTP2=1 \
 	&& cmake --build . --target install \
 	#
 	# Build Qpid Dispatch
