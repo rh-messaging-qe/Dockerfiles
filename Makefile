@@ -22,6 +22,9 @@ clients: cli-rhea-centos7, cli-rhea-alpine, cli-proton-python-centos7, cli-java-
 .PHONY: routers
 routers: qpid-dispatch-ubuntu, qpid-dispatch-centos7
 
+.PHONY: brokers
+brokers: artemis-fedora27
+
 .PHONY: sshd-service
 sshd-service: sshd-service-centos6 sshd-service-centos7
 
@@ -83,3 +86,9 @@ qpid-dispatch-ubuntu:
 
 qpid-dispatch-centos7: proton-lib-centos7
 	docker build -t rhmessagingqe/qpid-dispatch:centos7 routers/qdrouterd/centos7
+
+.PHONY: artemis
+artemis: artemis-fedora27
+
+artemis-fedora27:
+	docker build -t rhmessagingqe/artemis:fedora27 brokers/artemis/fedora27
