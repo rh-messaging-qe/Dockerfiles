@@ -64,17 +64,18 @@ cli-java-build:
 	docker cp cli-java-build:/cli-artemis.jar clients/cli-java/cli-artemis.jar
 	docker cp cli-java-build:/cli-paho.jar clients/cli-java/cli-paho.jar
 	docker cp cli-java-build:/cli-activemq.jar clients/cli-java/cli-activemq.jar
+	docker cp cli-java-build:/VERSION.txt clients/cli-java/VERSION.txt
 
 .PHONY: cli-java
-cli-java: cli-java-alpine
+cli-java: cli-java-build cli-java-alpine
 
-cli-java-alpine: cli-java-build
-	cp clients/cli-java/cli-*.jar clients/cli-java/alpine
+cli-java-alpine:
+	cp -f clients/cli-java/cli-* clients/cli-java/alpine/clients
 	docker build -t rhmessagingqe/cli-java:alpine clients/cli-java/alpine
-	rm clients/cli-java/alpine/cli-*.jar
+	rm -f clients/cli-java/alpine/clients/*
 
-cli-java-debian: cli-java-build
-	cp clients/cli-java/cli-*.jar clients/cli-java/debian
+cli-java-debian:
+	cp clients/cli-java/cli-*.jar clients/cli-java/debian/clients
 	docker build -t rhmessagingqe/cli-java:debian clients/cli-java/debian
 	rm clients/cli-java/debian/cli-*.jar
 
@@ -92,3 +93,6 @@ artemis: artemis-fedora27
 
 artemis-fedora27:
 	docker build -t rhmessagingqe/artemis:fedora27 brokers/artemis/fedora27
+
+.PHONY: clean
+	rm -f clients/cli-java/cli-*.jar clients/cli-java/VERSION.txt

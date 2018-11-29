@@ -1,0 +1,3 @@
+#!/bin/sh
+
+java ${JAVA_OPTS} ${CLI_QPID_JMS_OPTS} -jar /main/cli-paho.jar connector $@
