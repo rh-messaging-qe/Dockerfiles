@@ -28,8 +28,8 @@ RUN export \
 RUN groupadd -r cli-proton-python && useradd -r -d /var/lib/cli-proton-python -m -g cli-proton-python cli-proton-python \
 	&& chown -R cli-proton-python.cli-proton-python /var/lib/cli-proton-python
 
-WORKDIR /var/lib/cli-proton-python
 USER cli-proton-python:cli-proton-python
 VOLUME /var/lib/cli-proton-python
+WORKDIR /var/lib/cli-proton-python
 
 CMD [ "/bin/bash" ]

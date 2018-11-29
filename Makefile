@@ -70,12 +70,12 @@ cli-java-build:
 cli-java: cli-java-build cli-java-alpine
 
 cli-java-alpine: cli-java-build
-	mkdir clients/cli-java/alpine/clients
+	mkdir -p clients/cli-java/alpine/clients
 	cp clients/cli-java/cli-* clients/cli-java/alpine/clients
 	docker build -t rhmessagingqe/cli-java:alpine clients/cli-java/alpine
 
 cli-java-debian: cli-java-build
-	mkdir clients/cli-java/debian/clients
+	mkdir -p clients/cli-java/debian/clients
 	cp clients/cli-java/cli-*.jar clients/cli-java/debian/clients
 	docker build -t rhmessagingqe/cli-java:debian clients/cli-java/debian
 
