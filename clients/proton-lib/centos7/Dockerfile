@@ -14,7 +14,7 @@ RUN export \
 	&& yum -y install $BUILD_DEP \
 	#
 	# qpid-proton master
-    && git clone https://github.com/apache/qpid-proton.git \
+    && git clone https://github.com/apache/qpid-proton.git --depth 1 \
 	#
 	# Build Qpid Proton
 	&& mkdir -p /main/qpid-proton/build && cd /main/qpid-proton/build \
