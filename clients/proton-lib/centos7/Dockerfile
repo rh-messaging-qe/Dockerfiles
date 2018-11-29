@@ -3,6 +3,8 @@ FROM centos:7
 # Update image
 RUN yum -y update && yum clean all
 
+WORKDIR /main
+
 RUN export \
         MAKEFLAGS=-j$(nproc) \
 		DEP='cyrus-sasl-plain cyrus-sasl-gssapi cyrus-sasl-md5' \
@@ -11,16 +13,13 @@ RUN export \
 	&& yum -y install $DEP \
 	&& yum -y install $BUILD_DEP \
 	#
-	# Prepare sources
-    && mkdir -p /main && cd /main \
-	#
 	# qpid-proton master
     && git clone https://github.com/apache/qpid-proton.git \
 	#
 	# Build Qpid Proton
 	&& mkdir -p /main/qpid-proton/build && cd /main/qpid-proton/build \
 	&& cmake .. -DSYSINSTALL_BINDINGS=ON -DCMAKE_INSTALL_PREFIX=/usr -DSYSINSTALL_PYTHON=ON \
-	&& make install \
+	&& cmake --build . --target install \
 	&& cd "/main/qpid-proton" \
   	&& echo "Proton commit:("$(git rev-list --count HEAD).$(git rev-parse --short HEAD)")" >> /PROTON_VERSION.txt \
 	#
@@ -28,4 +27,6 @@ RUN export \
 	&& yum -y history undo 4 \
 	&& yum -y clean all \
 	&& rm -rf /var/cache/yum /main \
-	&& rm -rf /usr/share/proton-0.24.0/examples /usr/lib/qpid-dispatch/tests
+	&& rm -rf /usr/share/proton-*/examples
+
+WORKDIR /
