@@ -75,9 +75,9 @@ cli-java-alpine: cli-java-build
 	docker build -t rhmessagingqe/cli-java:alpine clients/cli-java/alpine
 
 cli-java-debian: cli-java-build
+	mkdir clients/cli-java/debian/clients
 	cp clients/cli-java/cli-*.jar clients/cli-java/debian/clients
 	docker build -t rhmessagingqe/cli-java:debian clients/cli-java/debian
-	rm clients/cli-java/debian/cli-*.jar
 
 .PHONY: qpid-dispatch
 qpid-dispatch: qpid-dispatch-ubuntu qpid-dispatch-centos7
@@ -97,3 +97,4 @@ artemis-fedora27:
 .PHONY: clean
 	rm -f clients/cli-java/cli-*.jar clients/cli-java/VERSION.txt
 	rm -f clients/cli-java/alpine/clients
+	rm -f clients/cli-java/debian/clients
