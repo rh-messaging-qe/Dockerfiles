@@ -70,9 +70,9 @@ cli-java-build:
 cli-java: cli-java-build cli-java-alpine
 
 cli-java-alpine: cli-java-build
-	cp -f clients/cli-java/cli-* clients/cli-java/alpine/clients
+	mkdir clients/cli-java/alpine/clients
+	cp clients/cli-java/cli-* clients/cli-java/alpine/clients
 	docker build -t rhmessagingqe/cli-java:alpine clients/cli-java/alpine
-	rm -f clients/cli-java/alpine/clients/*
 
 cli-java-debian: cli-java-build
 	cp clients/cli-java/cli-*.jar clients/cli-java/debian/clients
@@ -96,3 +96,4 @@ artemis-fedora27:
 
 .PHONY: clean
 	rm -f clients/cli-java/cli-*.jar clients/cli-java/VERSION.txt
+	rm -f clients/cli-java/alpine/clients
