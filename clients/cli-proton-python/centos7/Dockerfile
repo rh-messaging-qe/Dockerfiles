@@ -25,8 +25,11 @@ RUN export \
 	&& rm -rf /var/cache/yum /main
 
 # Add qdrouterd group / user
-RUN groupadd -r clipythonproton && useradd -r -d /var/lib/clipythonproton -m -g clipythonproton clipythonproton \
-	&& chown -R clipythonproton.clipythonproton /var/lib/clipythonproton
+RUN groupadd -r cli-proton-python && useradd -r -d /var/lib/cli-proton-python -m -g cli-proton-python cli-proton-python \
+	&& chown -R cli-proton-python.cli-proton-python /var/lib/cli-proton-python
 
-USER clipythonproton:clipythonproton
-VOLUME /var/lib/clipythonproton
+WORKDIR /var/lib/cli-proton-python
+USER cli-proton-python:cli-proton-python
+VOLUME /var/lib/cli-proton-python
+
+CMD [ "/bin/bash" ]
