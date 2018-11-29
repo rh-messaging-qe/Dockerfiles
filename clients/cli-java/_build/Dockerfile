@@ -10,4 +10,5 @@ RUN apk add git --no-cache && \
     cp cli-artemis-jms/target/cli-artemis-jms-*.jar /cli-artemis.jar && \
     cp cli-paho-java/target/cli-paho-java-*.jar /cli-paho.jar && \
     cp cli-activemq/target/cli-activemq-*.jar /cli-activemq.jar && \
-    && echo "cli-java:("$(git rev-list --count HEAD).$(git rev-parse --short HEAD)")" >> /VERSION.txt
+    echo "cli-java:("$(git rev-list --count HEAD).$(git rev-parse --short HEAD)")" >> /VERSION.txt && \
+    echo "package info:("$(ls cli-*/target/cli-*.jar)")" >> /VERSION.txt
