@@ -39,7 +39,6 @@ RUN export \
 	#
 	# Build Qpid Dispatch
 	&& mkdir -p /main/qpid-dispatch/build \
-	&& find -type f -exec sed -e 's_^#!/usr/bin/env python$_&2_' -i {} \;\
 	&& cd /main/qpid-dispatch/build \
 	&& cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
