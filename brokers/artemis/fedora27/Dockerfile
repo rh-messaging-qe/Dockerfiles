@@ -39,7 +39,7 @@ ARG instance_name
 ARG admin_user
 ARG admin_pass
 ARG url_base
-ENV artemis_version ${artemis_version:-2.6.4}
+ENV artemis_version ${artemis_version:-2.7.0}
 ENV instance_name ${instance_name:-broker1}
 ENV admin_user ${admin_user:-admin}
 ENV admin_pass ${admin_pass:-admin}
