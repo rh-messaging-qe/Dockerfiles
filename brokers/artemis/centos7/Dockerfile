@@ -17,18 +17,18 @@ ENV version ${version:-2.7.0}
 ENV url ${url:-https://archive.apache.org/dist/activemq/activemq-artemis/${version}/apache-artemis-${version}-bin.tar.gz}
 
 RUN groupadd -r artemis \
-    && mkdir /var/lib/artemis \
     && useradd -r -d /var/lib/artemis -m -g artemis artemis
 
 WORKDIR /opt
 
 RUN curl ${url} | tar xz \
     && mv /opt/apache-artemis-${version} /opt/artemis \
-    && /opt/artemis/bin/artemis create /var/lib/artemis --user admin --password admin --allow-anonymous --http-host 0.0.0.0 --nio \
+    && /opt/artemis/bin/artemis create /var/lib/artemis --name "Artemis cointainer" --user admin --password admin --allow-anonymous --http-host 0.0.0.0 --aio \
     && chown -R artemis.artemis /var/lib/artemis
 
 EXPOSE 61616 5445 5672 1883 61613 8161
 USER artemis:artemis
-VOLUME /var/lib/artemis/data
+WORKDIR /var/lib/artemis
+VOLUME /var/lib/artemis/etc /var/lib/artemis/data /var/lib/artemis/log
 
-CMD /var/lib/artemis/bin/artemis run
+CMD ./bin/artemis run
