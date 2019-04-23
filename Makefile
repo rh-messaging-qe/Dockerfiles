@@ -20,10 +20,10 @@ all-debian: cli-java-debian
 clients: cli-rhea-centos7, cli-rhea-alpine, cli-proton-python-centos7, cli-java-alpine, cli-java-debian
 
 .PHONY: routers
-routers: qpid-dispatch-ubuntu, qpid-dispatch-centos7
+routers: qpid-dispatch
 
 .PHONY: brokers
-brokers: artemis-fedora27
+brokers: artemis
 
 .PHONY: sshd-service
 sshd-service: sshd-service-centos6 sshd-service-centos7
@@ -89,10 +89,13 @@ qpid-dispatch-centos7: proton-lib-centos7
 	docker build -t rhmessagingqe/qpid-dispatch:centos7 routers/qdrouterd/centos7
 
 .PHONY: artemis
-artemis: artemis-fedora27
+artemis: artemis-fedora27 artemis-centos7
 
 artemis-fedora27:
 	docker build -t rhmessagingqe/artemis:fedora27 brokers/artemis/fedora27
+
+artemis-centos7:
+	docker build -t rhmessagingqe/artemis:centos7 brokers/artemis/centos7
 
 .PHONY: clean
 	rm -f clients/cli-java/cli-*.jar clients/cli-java/VERSION.txt

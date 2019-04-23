@@ -45,6 +45,8 @@ after_success:
     docker tag "$DOCKER_USERNAME"/qpid-dispatch:centos7 rhmessagingqe/qpid-dispatch:latest;
     docker push "$DOCKER_USERNAME"/qpid-dispatch;
 
+    docker tag "$DOCKER_USERNAME"/artemis:centos7 rhmessagingqe/artemis:centos7_270;
+    docker tag "$DOCKER_USERNAME"/artemis:fedora27 rhmessagingqe/artemis:fedora27_270;
     docker tag "$DOCKER_USERNAME"/artemis:fedora27 rhmessagingqe/artemis:latest;
     docker push "$DOCKER_USERNAME"/artemis;
 
