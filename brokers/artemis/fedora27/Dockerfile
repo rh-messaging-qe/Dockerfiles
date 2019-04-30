@@ -61,7 +61,8 @@ WORKDIR /opt
 # Downloads binaries for ActiveMQ Artemis, creates and configure a new instance
 RUN wget ${url_base}/apache-artemis-${artemis_version}-bin.tar.gz \
     && tar -zxvf apache-artemis-${artemis_version}-bin.tar.gz \
-    && cd apache-artemis-${artemis_version} \
+    && mv apache-artemis-${artemis_version} apache-artemis \
+    && cd apache-artemis \
     && bin/artemis create /opt/${instance_name} --user ${admin_user} --password ${admin_pass} --allow-anonymous --http-host 0.0.0.0 --nio
 
 # exposing broker ports

@@ -92,7 +92,7 @@ qpid-dispatch-centos7: proton-lib-centos7
 artemis: artemis-fedora27 artemis-centos7
 
 artemis-fedora27:
-	docker build -t rhmessagingqe/artemis:fedora27 brokers/artemis/fedora27
+	docker build -t rhmessagingqe/artemis:2.7.0-fedora27 --build-arg artemis_version=2.7.0 brokers/artemis/fedora27
 
 artemis-centos7:
 	docker build -t rhmessagingqe/artemis:centos7 brokers/artemis/centos7
