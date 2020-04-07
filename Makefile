@@ -17,7 +17,7 @@ all-ubuntu: qpid-dispatch-ubuntu
 all-debian: cli-java-debian
 
 .PHONY: clients
-clients: cli-rhea-centos7, cli-rhea-alpine, cli-proton-python-centos7, cli-java-alpine, cli-java-debian
+clients: cli-rhea-centos7 cli-rhea-alpine cli-proton-python-centos7 cli-java-alpine cli-java-debian
 
 .PHONY: routers
 routers: qpid-dispatch
